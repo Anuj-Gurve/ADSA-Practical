@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIdx])
+                minIdx = j;
+        }
+        // Swap the minimum element with the first element of unsorted part
+        int temp = arr[minIdx];
+        arr[minIdx] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        // Shift elements greater than key to one position ahead
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int main() {
+    int n, choice;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d integers: ", n);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    printf("\nChoose Sorting Algorithm:\n");
+    printf("1. Selection Sort\n");
+    printf("2. Insertion Sort\n");
+    printf("Enter choice (1 or 2): ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        selectionSort(arr, n);
+        printf("\nSorted array using Selection Sort:\n");
+    } else if (choice == 2) {
+        insertionSort(arr, n);
+        printf("\nSorted array using Insertion Sort:\n");
+    } else {
+        printf("\nInvalid choice!\n");
+        return 1;
+    }
+
+    printArray(arr, n);
+    return 0;
+}
